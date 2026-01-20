@@ -77,6 +77,16 @@ class Post(db.Model):
         return result
 
 # Routes
+@app.route('/')
+def home():
+    return jsonify({
+        'message': 'Flask REST API is running!',
+        'endpoints': {
+            'users': '/users',
+            'posts': '/posts'
+        }
+    })
+
 @app.route('/users', methods=['GET'])
 def get_users():
     users = User.query.all()
@@ -213,4 +223,4 @@ def delete_post(post_id):
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
